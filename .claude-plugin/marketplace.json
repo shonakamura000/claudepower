@@ -1,9 +1,9 @@
 {
-  "name": "superpowers-dev",
-  "description": "Development marketplace for Superpowers core skills library",
+  "name": "claudepower",
+  "description": "Custom fork of Superpowers with mandatory git worktree creation before implementation",
   "owner": {
-    "name": "Jesse Vincent",
-    "email": "jesse@fsck.com"
+    "name": "shonakamura000",
+    "email": ""
   },
   "plugins": [
     {
