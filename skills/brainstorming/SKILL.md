@@ -29,7 +29,8 @@ You MUST create a task for each of these items and complete them in order:
 6. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit
 7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
 8. **User reviews written spec** — ask user to review the spec file before proceeding
-9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+9. **Create isolated workspace** — invoke `superpowers:using-git-worktrees` to create a dedicated branch and worktree BEFORE writing plans. This step is MANDATORY and must not be skipped.
+10. **Transition to implementation** — invoke `superpowers:writing-plans` skill to create implementation plan
 
 ## Process Flow
 
@@ -45,6 +46,7 @@ digraph brainstorming {
     "Write design doc" [shape=box];
     "Spec self-review\n(fix inline)" [shape=box];
     "User reviews spec?" [shape=diamond];
+    "Invoke using-git-worktrees skill" [shape=box];
     "Invoke writing-plans skill" [shape=doublecircle];
 
     "Explore project context" -> "Visual questions ahead?";
@@ -59,11 +61,12 @@ digraph brainstorming {
     "Write design doc" -> "Spec self-review\n(fix inline)";
     "Spec self-review\n(fix inline)" -> "User reviews spec?";
     "User reviews spec?" -> "Write design doc" [label="changes requested"];
-    "User reviews spec?" -> "Invoke writing-plans skill" [label="approved"];
+    "User reviews spec?" -> "Invoke using-git-worktrees skill" [label="approved"];
+    "Invoke using-git-worktrees skill" -> "Invoke writing-plans skill";
 }
 ```
 
-**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.
+**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. After brainstorming, you MUST invoke `superpowers:using-git-worktrees` first, then `superpowers:writing-plans`. Never skip the worktree step.
 
 ## The Process
 
@@ -132,8 +135,9 @@ Wait for the user's response. If they request changes, make them and re-run the 
 
 **Implementation:**
 
-- Invoke the writing-plans skill to create a detailed implementation plan
-- Do NOT invoke any other skill. writing-plans is the next step.
+- FIRST invoke `superpowers:using-git-worktrees` to create an isolated branch/worktree. This is REQUIRED and must not be skipped.
+- THEN invoke `superpowers:writing-plans` to create a detailed implementation plan
+- Do NOT skip the worktree step. Do NOT invoke any other skill between these two steps.
 
 ## Key Principles
 
