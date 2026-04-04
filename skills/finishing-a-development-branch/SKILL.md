@@ -39,12 +39,7 @@ Stop. Don't proceed to Step 2.
 
 ### Step 2: Determine Base Branch
 
-```bash
-# Try common base branches
-git merge-base HEAD main 2>/dev/null || git merge-base HEAD master 2>/dev/null
-```
-
-Or ask: "This branch split from main - is that correct?"
+The base branch is always `main`. Do not ask the user — use `main` unconditionally.
 
 ### Step 3: Present Options
 
@@ -88,12 +83,14 @@ Then: Cleanup worktree (Step 5)
 
 #### Option 2: Push and Create PR
 
+The PR target is always `main`.
+
 ```bash
 # Push branch
 git push -u origin <feature-branch>
 
-# Create PR
-gh pr create --title "<title>" --body "$(cat <<'EOF'
+# Create PR targeting main
+gh pr create --base main --title "<title>" --body "$(cat <<'EOF'
 ## Summary
 <2-3 bullets of what changed>
 
